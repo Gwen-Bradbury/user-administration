@@ -1,6 +1,17 @@
 {% extends "base" %}
 
 {% block body %}
-    {% for user in users %}
-    {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mt-3 header">Users</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% for user in user %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
