@@ -1,4 +1,4 @@
-{% extends "base" %}
+{% extends "base.html.twig" %}
 
 {% block body %}
     <div class="container">
@@ -9,7 +9,7 @@
         </div>
         <div class="row card-panel">
             <div class="col-12">
-                <form method="post" action="create">
+                <form method="post" action="add-user">
                     <div class="input-field col-12">
                         <label class="mb-3 label" for="username">Username:</label>
                         <input id="username" name="username" minlength="5" maxlength="50"
@@ -27,6 +27,9 @@
                     </div>
                     <button type="submit" class="btn btn-info btn-sm mt-3">
                         Add User
+                    </button>
+                    <button type="submit" class="btn btn-info btn-sm mt-3">
+                        All Users
                     </button>
                 </form>
             </div>

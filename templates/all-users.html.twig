@@ -1,16 +1,38 @@
-{% extends "base" %}
+{% extends "base.html.twig" %}
 
 {% block body %}
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1 class="mt-3 header">Users</h1>
+            <h1 class="mt-3 header">All Users</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             {% for user in user %}
+                <div class="col-2">
+                    {{ user.id }}
+                </div>
+                <div class="col-3">
+                    {{ user.username }}
+                </div>
+                <div class="col-3">
+                    {{ user.email }}
+                </div>
+                <div class="col-2">
+                    {{ user.password }}
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-info btn-sm mt-3">
+                        Destroy
+                    </button>
+                </div>
             {% endfor %}
+        </div>
+        <div class="col-12">
+                <button type="submit" class="btn btn-info btn-sm mt-3">
+                    Create New User
+                </button>
         </div>
     </div>
 </div>
