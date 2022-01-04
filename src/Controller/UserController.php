@@ -16,7 +16,7 @@ class UserController extends AbstractController
      */
     public function allUsers(Repository $repository): Response
     {
-        return $this->render('all-users.html.twig', ['task' => $repository->getAllUsers()]);
+        return $this->render('all-users.html.twig', ['user' => $repository->getAllUsers()]);
     }
 
 
@@ -44,6 +44,42 @@ class UserController extends AbstractController
             $request->request->get('password')
         );
 
+        return $this->redirect('/all-users');
+    }
+
+
+    /**
+     * @Route("/edit-user/{id}", name="edit-user")
+     *
+     */
+    public function editUser(Repository $repository, int $id): Response
+    {
+        return $this->render('edit-user.html.twig', ['user' => $repository->getUser($id)]);
+    }
+
+
+    /**
+     * @Route("/update-user/{id}", methods={"POST", "OPTIONS"}, name="update-user")
+     *
+     */
+    public function updateUser(Repository $repository, Request $request, int $id): Response
+    {
+        $username = $request->request->get('username');
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+
+        $repository->updateUser(['username' => $username, 'email' => $email, 'password' => $password], $id);
+
+        return $this->redirect('/all-users');
+    }
+
+    /**
+     * @Route("/delete-user/{id}")
+     *
+     */
+    public function deleteUser(Repository $repository, int $id): Response
+    {
+        $repository->deleteUser($id);
         return $this->redirect('/all-users');
     }
 }
