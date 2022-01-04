@@ -34,19 +34,25 @@
                     {{ user.password }}
                 </div>
                 <div class="col-12 offset-4">
-                    <button class="btn btn-info btn-sm mt-3">
-                        Destroy
+                    <button type="button" class="btn btn-danger btn-sm">
+                        <a href="/delete-user/{{ user.id }}">
+                            Delete User
+                        </a>
                     </button>
-                    <button class="btn btn-info btn-sm mt-3">
-                        Edit
+                    <button type="button" class="btn btn-info btn-sm">
+                        <a href="/edit-user/{{ user.id }}">
+                            Edit User
+                        </a>
                     </button>
                 </div>
             {% endfor %}
         </div>
         <div class="row">
             <div class="col-12 offset-4">
-                <button type="submit" class="btn btn-info btn-sm mt-3">
-                    Create New User
+                <button type="button" class="btn btn-info btn-sm">
+                    <a href="/add-user-form">
+                        Add User
+                    </a>
                 </button>
             </div>
         </div>
