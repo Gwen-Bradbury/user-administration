@@ -77,7 +77,7 @@ class UserTest extends WebTestCase
         );
     }
 
-    public function testAUserGetsUpdated(): void
+    public function testUserGetsUpdated(): void
     {
         $this->connection->executeStatement("
             INSERT INTO user (username, email, password) 
@@ -98,7 +98,7 @@ class UserTest extends WebTestCase
         );
     }
 
-    public function testAUserGetsDeleted(): void
+    public function testUserGetsDeleted(): void
     {
         $this->connection->executeStatement("
             INSERT INTO user (username, email, password) 
@@ -109,7 +109,8 @@ class UserTest extends WebTestCase
         $this->user->deleteUser(1);
 
         $this->assertSame(
-            [['id' => '2', 'username' => 'some other username', 'email' => 'some other email', 'password' => 'some other password']],
+            [['id' => '2', 'username' => 'some other username', 'email' => 'some other email',
+                'password' => 'some other password']],
             $this->connection->fetchAllAssociative('SELECT * FROM user')
         );
     }

@@ -73,6 +73,7 @@ class UserController extends AbstractController
         return $this->redirect('/all-users');
     }
 
+
     /**
      * @Route("/delete-user/{id}")
      *

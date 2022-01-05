@@ -1,0 +1,11 @@
+.btn,
+button a {
+    color: #fff;
+    text-decoration: none;;
+}
+
+.btn:hover,
+button a:hover{
+    color:#0033cc;
+    text-decoration: none;
+}
