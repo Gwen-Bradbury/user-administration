@@ -6,7 +6,11 @@ use App\Repository\User as Repository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\MigratingPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Config\Security\PasswordHasherConfig;
 
 class UserController extends AbstractController
 {
@@ -38,10 +42,14 @@ class UserController extends AbstractController
      */
     public function addUser(Repository $repository, Request $request): Response
     {
+        $plaintextPassword = $request->request->get('password');
+
+        $factory = new PasswordHasherFactory(['common' => ['algorithm' => 'sha256']]);
+        $hashedPassword = $factory->getPasswordHasher('common')->hash($plaintextPassword);
         $repository->addUser(
             $request->request->get('username'),
             $request->request->get('email'),
-            $request->request->get('password')
+            $hashedPassword
         );
 
         return $this->redirect('/all-users');
