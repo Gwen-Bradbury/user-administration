@@ -6,6 +6,7 @@ use App\Controller\UserController;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
 
 class UserControllerTest extends WebTestCase
 {
@@ -57,10 +58,13 @@ class UserControllerTest extends WebTestCase
             '/add-user', ['username' => 'some username', 'email' => 'some email', 'password' => 'some password']
         );
 
-        $this->assertSame(
-            [['id' => '1', 'username' => 'some username', 'email' => 'some email', 'password' => 'some password']],
-            $this->connection->fetchAllAssociative('SELECT * FROM user')
-        );
+        $user = $this->connection->fetchAssociative('SELECT username, email, password FROM user WHERE id = 1');
+        $this->assertSame('some username', $user['username']);
+        $this->assertSame('some email', $user['email']);
+
+        $factory = new PasswordHasherFactory(['common' => ['algorithm' => 'sha256']]);
+        $password = $factory->getPasswordHasher('common')->hash('some password');
+        $this->assertSame($password, $user['password']);
         $this->assertResponseRedirects('/all-users');
     }
 

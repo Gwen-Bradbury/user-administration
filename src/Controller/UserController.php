@@ -46,7 +46,7 @@ class UserController extends AbstractController
 
         $factory = new PasswordHasherFactory(['common' => ['algorithm' => 'sha256']]);
         $hashedPassword = $factory->getPasswordHasher('common')->hash($plaintextPassword);
-        $hashedPassword = substr($hashedPassword, 0, 5);
+
         $repository->addUser(
             $request->request->get('username'),
             $request->request->get('email'),
