@@ -9,3 +9,7 @@ button a:hover{
     color:#0033cc;
     text-decoration: none;
 }
+
+.password {
+    overflow: hidden;
+}
