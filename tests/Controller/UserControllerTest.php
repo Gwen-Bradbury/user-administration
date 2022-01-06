@@ -97,12 +97,14 @@ class UserControllerTest extends WebTestCase
             ]
         );
 
-        $this->assertSame([[
-                'id' => '1',
-                'username' => 'some other username',
-                'email' => 'some other email',
-                'password' => 'some other password'
-            ]], $this->connection->fetchAllAssociative('SELECT * FROM user'));
+        $user = $this->connection->fetchAssociative('SELECT * FROM user WHERE id = 1');
+        $this->assertSame('some other username', $user['username']);
+        $this->assertSame('some other email', $user['email']);
+        
+        $factory = new PasswordHasherFactory(['common' => ['algorithm' => 'sha256']]);
+        $password = $factory->getPasswordHasher('common')->hash('some other password');
+
+        $this->assertSame($password, $user['password']);
         $this->assertResponseRedirects('/all-users');
     }
 
